@@ -1,24 +1,23 @@
 class StockSpanner {
-ArrayList<Integer> arr=new ArrayList<>();
-
+ Stack<Pair<Integer,Integer>> st=new Stack<>();
+int index=-1;
     public StockSpanner() {
-        while(!arr.isEmpty()){
-            arr.clear();
+    
+   
+        while(!st.isEmpty()){
+          st.pop();
         }
     }
 
     
     public int next(int price) {
-        arr.add(price);
-        int cnt=1;
-        for(int i=arr.size()-2;i>=0;i--){
-            if(arr.get(i)<=price){
-                cnt++;
-            }else{
-                break;
-            }
-        }
-        return cnt;
+  index++;
+  while(!st.isEmpty() && st.peek().getKey()<= price ){
+st.pop();
+  }
+     int ans=index - (st.isEmpty() ? -1: st.peek().getValue());
+    st.push(new Pair<>(price, index));
+     return ans;
     }
 
 }
