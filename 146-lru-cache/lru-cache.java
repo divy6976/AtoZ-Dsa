@@ -1,51 +1,59 @@
 class LRUCache {
-    Node head = new Node(-1, -1), tail = new Node(-1, -1);
-    Map < Integer, Node > map = new HashMap();
-    int capacity;
+Node head=new Node(-1,-1);
+Node tail=new Node(-1,-1);
+HashMap<Integer,Node> map=new HashMap<>();
+int capacity;
 
-    public LRUCache(int _capacity) {
-        capacity = _capacity;
-        head.next = tail;
-        tail.prev = head;
+    public LRUCache(int capacity) {
+           this.capacity = capacity; 
+    head.next=tail;
+    tail.prev=head;
     }
-
+    
     public int get(int key) {
-        if (map.containsKey(key)) {
-            Node node = map.get(key);
-            remove(node);
-            insert(node);
-            return node.value;
-        } else {
+        if(!map.containsKey(key)){
             return -1;
         }
-    }
+        Node node=map.get(key);
+        deleteNode(node);
+        insertafterhead(node);
+        return node.value;
 
+    }
+    
     public void put(int key, int value) {
-        if (map.containsKey(key)) {
-            remove(map.get(key));
+        if(map.containsKey(key)){
+            Node node=map.get(key);
+            node.value=value;
+            deleteNode(node);
+            insertafterhead(node);
+        }else{
+              if (map.size() == capacity) {
+                Node node=tail.prev;
+                deleteNode(node);
+                map.remove(node.key);
+            }
+            Node node=new Node(key,value);
+          map.put(key, node);
+            insertafterhead(node);
         }
-        if (map.size() == capacity) {
-            remove(tail.prev);
-        }
-        insert(new Node(key, value));
     }
-
-    private void remove(Node node) {
-        map.remove(node.key);
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
+    public void deleteNode(Node node){
+Node prevnode=node.prev;
+Node afternode=node.next;
+prevnode.next=afternode;
+afternode.prev=prevnode;
     }
-
-    private void insert(Node node) {
-        map.put(node.key, node);
-        node.next = head.next;
-        node.next.prev = node;
-        head.next = node;
-        node.prev = head;
-    }
+    public void insertafterhead(Node node){
+        Node afterhead=head.next;
+        head.next=node;
+        node.next=afterhead;
+        afterhead.prev=node;
+        node.prev=head;
+    } 
 
     class Node {
-        Node prev, next;
+        Node prev; Node next;
         int key, value;
         Node(int _key, int _value) {
             key = _key;
