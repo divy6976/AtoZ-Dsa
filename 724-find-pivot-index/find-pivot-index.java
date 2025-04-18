@@ -1,6 +1,6 @@
 class Solution {
     public int pivotIndex(int[] nums) {
-      if(nums.length == 0) return - 1;
+
       int leftSum = 0, rightSum = 0;
       for(int num : nums) 
           rightSum += num;
