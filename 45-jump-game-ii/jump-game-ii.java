@@ -6,12 +6,13 @@ class Solution {
         int jumps = 0;
 
         while (right < nums.length - 1) {
-            jumps++;
+            
             for (int i = left; i <= right; i++) {
                 farthest = Math.max(farthest, nums[i] + i);
             }
             left = right + 1;
             right = farthest;
+            jumps++;
         }
 
         return jumps;
