@@ -14,24 +14,22 @@
  * }
  */
 class Solution {
-    public boolean isSameTree(TreeNode p, TreeNode q) {
-        ArrayList<String> p1 = new ArrayList<>();
-        ArrayList<String> q1 = new ArrayList<>();
-        
-        getTree(p, p1);
-        getTree(q, q1);
-        
-        // Compare traversal lists
-        return p1.equals(q1);
-    }
+   public boolean isSameTree(TreeNode p, TreeNode q) {
+    List<Integer> list1 = new ArrayList<>();
+    List<Integer> list2 = new ArrayList<>();
+    preorder(p, list1);
+    preorder(q, list2);
+    return list1.equals(list2);
+}
 
-    void getTree(TreeNode node, ArrayList<String> list) {
-        if (node == null) {
-            list.add("null"); // Represent nulls to preserve structure
-            return;
-        }
-        list.add(String.valueOf(node.val)); // Add current node's value
-        getTree(node.left, list);          // Traverse left
-        getTree(node.right, list);         // Traverse right
+void preorder(TreeNode node, List<Integer> list) {
+    if (node == null) {
+        list.add(null); // to keep structure
+        return;
     }
+    list.add(node.val);
+    preorder(node.left, list);
+    preorder(node.right, list);
+}
+
 }
