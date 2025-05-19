@@ -15,39 +15,23 @@
  */
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        ArrayList<TreeNode>p1=new ArrayList<>();
-        ArrayList<TreeNode>q1=new ArrayList<>();
-        getp(p,p1);
-        getq(q,q1);
-
-   
-   if (p == null && q == null) return true;
-        if (p == null || q == null) return false;
-        if (p.val != q.val) return false;
-
-        // Recursively check left and right subtrees
-        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
-
+        ArrayList<String> p1 = new ArrayList<>();
+        ArrayList<String> q1 = new ArrayList<>();
+        
+        getTree(p, p1);
+        getTree(q, q1);
+        
+        // Compare traversal lists
+        return p1.equals(q1);
     }
 
-void getp(TreeNode node,  ArrayList<TreeNode>p1){
-    if(node==null){
-        return ;
+    void getTree(TreeNode node, ArrayList<String> list) {
+        if (node == null) {
+            list.add("null"); // Represent nulls to preserve structure
+            return;
+        }
+        list.add(String.valueOf(node.val)); // Add current node's value
+        getTree(node.left, list);          // Traverse left
+        getTree(node.right, list);         // Traverse right
     }
-    getp(node.left,p1);
-  
-    getp(node.right,p1);
-    p1.add(node);
-
-}
-void getq(TreeNode node, ArrayList<TreeNode>q1){
-    if(node==null){
-        return ;
-    }
-    getq(node.left,q1);
-    getq(node.right,q1);
-    q1.add(node);
-
-}
-
 }
