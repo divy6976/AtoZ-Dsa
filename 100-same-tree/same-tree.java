@@ -14,22 +14,25 @@
  * }
  */
 class Solution {
-   public boolean isSameTree(TreeNode p, TreeNode q) {
-    List<Integer> list1 = new ArrayList<>();
-    List<Integer> list2 = new ArrayList<>();
-    preorder(p, list1);
-    preorder(q, list2);
-    return list1.equals(list2);
-}
+     public boolean isSameTree(TreeNode p, TreeNode q) {
+        ArrayList<Integer> list1 = new ArrayList<>();
+        ArrayList<Integer> list2 = new ArrayList<>();
 
-void preorder(TreeNode node, List<Integer> list) {
-    if (node == null) {
-        list.add(null); // to keep structure
-        return;
+        getPostOrder(p, list1);
+        getPostOrder(q, list2);
+
+        return list1.equals(list2); // Directly compare lists
     }
-    list.add(node.val);
-    preorder(node.left, list);
-    preorder(node.right, list);
-}
+
+    void getPostOrder(TreeNode node, ArrayList<Integer> list) {
+        if (node == null) {
+            list.add(null); // Keep structure information
+            return;
+        }
+
+        getPostOrder(node.left, list);
+        getPostOrder(node.right, list);
+        list.add(node.val); // Post-order: left, right, node
+    }
 
 }
