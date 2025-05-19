@@ -37,7 +37,6 @@ class Solution {
         }
         int lh=getheight(node.left);
         int rh=getheight(node.right);
-   
-    return Math.max(0, node.val + Math.max(lh, rh));
+      return Math.max(0, node.val + Math.max(lh, rh));
     }
 }
