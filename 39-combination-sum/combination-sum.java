@@ -1,24 +1,24 @@
-public class Solution {
-    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> result = new ArrayList<>();
-        Arrays.sort(candidates); // Optional: helps with pruning
-        backtrack(0, target, candidates, new ArrayList<>(), result);
-        return result;
-    }
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+     
+      List<List<Integer>> result=new ArrayList<>();
+      Arrays.sort(candidates);
+        ArrayList<Integer> current=new ArrayList<>();
 
-    private static void backtrack(int index, int target, int[] candidates,
-                                  List<Integer> current, List<List<Integer>> result) {
-        if (target == 0) {
-            result.add(new ArrayList<>(current)); // Found a valid combination
+combination(candidates,target,result,current,0);
+return result;
+    }
+  void  combination(int[] candidates,int target,List<List<Integer>> result,ArrayList<Integer> current,int ind){
+        if(target==0){
+            result.add(new ArrayList<>(current));
             return;
         }
-
-        for (int i = index; i < candidates.length; i++) {
-            if (candidates[i] > target) break; // Prune the branch early
-
+        for(int i=ind;i<candidates.length;i++){
+            if(candidates[i]>target) break;
             current.add(candidates[i]);
-            backtrack(i, target - candidates[i], candidates, current, result); // Use same index (reuse allowed)
-            current.remove(current.size() - 1); // Backtrack
+            combination(candidates,target-candidates[i],result,current,i);
+            current.remove(current.size()-1);
+
         }
     }
 }
