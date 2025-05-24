@@ -1,26 +1,24 @@
-class Solution {
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-          List<List<Integer>> result=new ArrayList<>();
-        ArrayList<Integer> current=new ArrayList<>();
-      generatecombination(candidates,target,current,0,result);
-      return result;
+public class Solution {
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(candidates); // Optional: helps with pruning
+        backtrack(0, target, candidates, new ArrayList<>(), result);
+        return result;
     }
-  private void generatecombination(int[] candidates, int target, ArrayList<Integer> current,int i,List<List<Integer>> result){
-        if(i==candidates.length){
-            if(target==0){
-  result.add(new ArrayList<>(current));
- 
-            }
+
+    private static void backtrack(int index, int target, int[] candidates,
+                                  List<Integer> current, List<List<Integer>> result) {
+        if (target == 0) {
+            result.add(new ArrayList<>(current)); // Found a valid combination
             return;
         }
-        if(candidates[i]<=target){
+
+        for (int i = index; i < candidates.length; i++) {
+            if (candidates[i] > target) break; // Prune the branch early
+
             current.add(candidates[i]);
-          
-            generatecombination(candidates, target-candidates[i],current,i,result);
-            current.remove(current.size()-1);
+            backtrack(i, target - candidates[i], candidates, current, result); // Use same index (reuse allowed)
+            current.remove(current.size() - 1); // Backtrack
         }
-        
-             generatecombination(candidates,target,current,i+1,result);
-        
     }
 }
