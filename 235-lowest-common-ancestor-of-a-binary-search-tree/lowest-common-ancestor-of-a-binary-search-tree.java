@@ -10,58 +10,22 @@
 
 class Solution {
 
-
-  boolean  path(TreeNode node,TreeNode p,ArrayList<TreeNode>list1){
-        if(node==null){
-            return false;
-        }
-list1.add(node);
-if(node.val==p.val){
-    return true;
-}
-if(path(node.left,p,list1) || path(node.right,p,list1)){
-    return true;
-}
-list1.remove(list1.size()-1);
-return false;
+   public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    // Base case: if root is null or root is one of the nodes p or q
+    if (root == null || root == p || root == q) {
+        return root;
     }
-
-  boolean  path2(TreeNode node,TreeNode q,ArrayList<TreeNode>list2){
-        if(node==null){
-            return false;
-        }
-list2.add(node);
-if(node.val==q.val){
-    return true;
+    
+    // Recursively search in the left and right subtrees
+    TreeNode left = lowestCommonAncestor(root.left, p, q);
+    TreeNode right = lowestCommonAncestor(root.right, p, q);
+if(left==null){
+    return right;
+}else if(right==null){
+return left;
+}else{
+    return root;
 }
-if(path2(node.left,q,list2) || path2(node.right,q,list2)){
-    return true;
+
 }
-list2.remove(list2.size()-1);
-return false;
-    }
-
-
-
-
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        ArrayList<TreeNode>list1=new ArrayList<>();
-         ArrayList<TreeNode>list2=new ArrayList<>();
-TreeNode ans=null;
-         path(root,p,list1);
-         path2(root,q,list2);
-         for(int i=0;i<list1.size();i++){
-            for(int j=i;j<list2.size();j++){
-                if(list2.get(j)!=list1.get(i)){
-                    break;
-                }
-
-                ans=list1.get(i);
-break;
-            }
-
-         }
-        
-return ans;
-    }
 }
