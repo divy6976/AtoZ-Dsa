@@ -56,11 +56,11 @@ class Solution {
             if (i + j == k) {
                 return true;
             } else if (i + j < k) {
-                if (l.hasNext()) i = l.next(); // ✅ Fix: Safe check before calling next()
-                else break;
+                 i = l.next(); // ✅ Fix: Safe check before calling next()
+                
             } else {
-                if (r.hasNext()) j = r.next(); // ✅ Fix: Safe check before calling next()
-                else break;
+                 j = r.next(); // ✅ Fix: Safe check before calling next()
+                
             }
         }
 return false;
