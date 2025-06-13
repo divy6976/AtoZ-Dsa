@@ -39,7 +39,11 @@ void inorder(TreeNode node){
     }
     
     public boolean hasNext() {
-          return cnt + 1 < list.size();
+  
+      if(cnt+1<=list.size()-1){
+        return true;
+      }
+      return false;
     }
 }
 
