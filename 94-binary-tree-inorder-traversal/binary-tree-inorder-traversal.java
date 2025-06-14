@@ -13,11 +13,16 @@
  *     }
  * }
  */
+
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         ArrayList<Integer>result=new ArrayList<>();
         TreeNode curr=root;
+    
+    
+
         while(curr!=null){
+
            if(curr.left!=null){
             TreeNode leftchild=curr.left;
             while(leftchild.right!=null){
@@ -34,6 +39,10 @@ class Solution {
 
 
         }
+
+
         return result;
+        
+
     }
 }
