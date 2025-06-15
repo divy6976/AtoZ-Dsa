@@ -23,7 +23,7 @@ int right=depth(node.right);
 if(Math.abs(left-right)>1){
     valid=false;
 }
-return 1+ Math.max(left,right);
+return 1+Math.max(left,right);
 
 
     }
