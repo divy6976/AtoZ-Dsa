@@ -14,19 +14,27 @@
  * }
  */
 class Solution {
-    public boolean isBalanced(TreeNode root) {
-            return dfsheight(root) != -1;
+  private boolean valid = true;
+
+  int   depth(TreeNode node){
+if(node==null) return 0;
+int left=depth(node.left);
+int right=depth(node.right);
+if(Math.abs(left-right)>1){
+    valid=false;
+}
+return 1+ Math.max(left,right);
+
+
     }
-    int dfsheight(TreeNode node){
-        if(node==null) return 0;
 
-        int lh=dfsheight(node.left);
-        if(lh ==-1) return -1;
-        int rh=dfsheight(node.right);
-        if(rh==-1) return -1;
-
-        if(Math.abs(lh-rh)>1) return -1;
-        return Math.max(lh,rh)+1;
-
+    public boolean isBalanced(TreeNode root) {
+       
+        if(root==null) return true;
+depth(root);
+        if(valid==true){
+            return true;
+        }
+        return false;
     }
 }
