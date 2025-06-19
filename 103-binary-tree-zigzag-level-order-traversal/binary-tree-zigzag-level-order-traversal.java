@@ -14,41 +14,41 @@
  * }
  */
 class Solution {
+  
+
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        boolean direc = true;
-        List<List<Integer>> result = new ArrayList<>();
-        Queue<TreeNode> queue = new LinkedList<>();
-        
-        if (root == null) {
-            return result;
-        }
-
+     List<List<Integer>> result=new ArrayList<>();
+    
+     if(root==null){
+        return result;
+     }
+boolean direc = true;
+        Queue<TreeNode> queue=new LinkedList<>();
         queue.offer(root);
+        while(!queue.isEmpty()){
+            int level=queue.size();
+             ArrayList<Integer> list=new ArrayList<>();
+            for(int i=0;i<level;i++){
+                
+                TreeNode node=queue.poll();
 
-        while (!queue.isEmpty()) {
-            int level = queue.size();
-            ArrayList<Integer> sublist = new ArrayList<>();
+                    if(node.left!=null){
+                        queue.offer(node.left);
+                    }
+                    if(node.right!=null){
+                        queue.offer(node.right);
+                    }
 
-            for (int i = 0; i < level; i++) {
-                TreeNode node = queue.poll();
-
-                if (node.left != null) {
-                    queue.offer(node.left);
-                }
-
-                if (node.right != null) {
-                    queue.offer(node.right);
-                }
-
-                if (direc) {
-                    sublist.add(node.val);
-                } else {
-                    sublist.add(0, node.val);
-                }
+               if(direc== true){
+                list.add(node.val);
+               }else{
+                list.add(0,node.val);
+               }
+              
             }
+         direc=!direc;
+          result.add(new ArrayList<>(list));
 
-            result.add(sublist);
-            direc = !direc;
         }
 
         return result;
