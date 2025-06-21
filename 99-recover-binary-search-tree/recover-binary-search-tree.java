@@ -38,7 +38,7 @@ class Solution {
     public void recoverTree(TreeNode root) {
         inorder(root);
 
-        // Swap the values of first and last
+      
         if (first != null && last != null) {
             int temp = first.val;
             first.val = last.val;
