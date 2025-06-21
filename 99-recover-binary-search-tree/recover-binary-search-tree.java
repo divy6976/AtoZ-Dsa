@@ -14,34 +14,35 @@
  * }
  */
 class Solution {
-  int i=0;
-    void inorder(TreeNode node,ArrayList<Integer> list){
-        if(node==null) return;
+    TreeNode first = null;
+    TreeNode last = null;
+    TreeNode prev = null;
 
+    void inorder(TreeNode node) {
+        if (node == null) return;
 
-inorder(node.left,list);
-list.add(node.val);
-inorder(node.right,list);
+        inorder(node.left);
 
-
-    }
-   void recover(TreeNode node,ArrayList<Integer> list){
-        if(node==null) return;
-
-        recover(node.left,list);
-        if(node.val !=list.get(i)){
-        node.val=list.get(i);
+        if (prev != null && node.val < prev.val) {
+            if (first == null) {
+                first = prev;
+            }
+            last = node;
         }
-        i++;
-        recover(node.right,list);
+
+        prev = node;
+
+        inorder(node.right);
     }
 
     public void recoverTree(TreeNode root) {
-        ArrayList<Integer> list=new ArrayList<>();
-        inorder(root,list);
-        
-        Collections.sort(list);
-        recover(root,list);
+        inorder(root);
 
+        // Swap the values of first and last
+        if (first != null && last != null) {
+            int temp = first.val;
+            first.val = last.val;
+            last.val = temp;
+        }
     }
 }
