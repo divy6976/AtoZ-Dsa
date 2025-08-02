@@ -42,7 +42,6 @@ class Solution {
             j++;
         }
 
-        // Convert result List<List<Integer>> to int[][]
         int[][] ans = new int[result.size()][2];
         for (int k = 0; k < result.size(); k++) {
             ans[k][0] = result.get(k).get(0);
