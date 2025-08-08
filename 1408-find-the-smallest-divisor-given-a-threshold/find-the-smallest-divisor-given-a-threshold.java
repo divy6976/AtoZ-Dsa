@@ -5,6 +5,8 @@ class Solution {
            sum += (int) Math.ceil((double) nums[i] / mid);
 
         }
+
+        
         return sum;
     }
     public int smallestDivisor(int[] nums, int threshold) {
