@@ -1,70 +1,77 @@
 class Solution {
-    class Pair {
+
+    class Pair{
         int row;
         int col;
         int time;
+        Pair(int row,int col,int time){
+            this.row=row;
+            this.col=col;
+            this.time=time;
 
-        Pair(int row, int col, int time) {
-            this.row = row;
-            this.col = col;
-            this.time = time;
         }
     }
 
-    public int orangesRotting(int[][] grid) {
-        int ans = 0;
-        Queue<Pair> q = new LinkedList<>();
-        int n = grid.length;
-        int m = grid[0].length;
-        int[][] visited = new int[n][m];
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (grid[i][j] == 2) {
-                    visited[i][j] = 2;
-                    q.offer(new Pair(i, j, 0));
+    public int orangesRotting(int[][] grid) {
+        int ans=0;
+
+        Queue<Pair> q=new LinkedList<>();
+
+        boolean[][] visited=new boolean[grid.length][grid[0].length];
+
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]==2){
+                    q.offer(new Pair(i,j,0));
+                    visited[i][j]=true;
                 }
             }
         }
 
-        while (!q.isEmpty()) {
-            Pair p = q.poll();
-            int r = p.row;
-            int c = p.col;
-            int t = p.time;
-            ans = t;
+        int[] rows={-1,0,1,0};
+        int[] cols={0,1,0,-1};
+        int n=grid.length;
+        int m=grid[0].length;
 
-            if (r - 1 >= 0 && grid[r - 1][c] == 1 && visited[r - 1][c] != 2) {
-                visited[r - 1][c] = 2;
-                q.offer(new Pair(r - 1, c, t + 1));
+        while(!q.isEmpty()){
+            Pair p=q.poll();
+            int row=p.row;
+            int col=p.col;
+            int time=p.time;
+            grid[row][col]=2;
+            ans=time;
+
+
+            for(int k=0;k<4;k++){
+                int nr=row+rows[k];
+                int nc=col+cols[k];
+                
+
+                if(nr >= 0 && nr < n && nc >= 0 && nc < m 
+   && !visited[nr][nc] && grid[nr][nc] == 1) {
+
+    q.offer(new Pair(nr, nc, time + 1));
+    visited[nr][nc] = true;
+}
+
+
             }
 
-            if (r + 1 < n && grid[r + 1][c] == 1 && visited[r + 1][c] != 2) {
-                visited[r + 1][c] = 2;
-                q.offer(new Pair(r + 1, c, t + 1));
-            }
+            
 
-            if (c - 1 >= 0 && grid[r][c - 1] == 1 && visited[r][c - 1] != 2) {
-                visited[r][c - 1] = 2;
-                q.offer(new Pair(r, c - 1, t + 1));
-            }
-
-            if (c + 1 < m && grid[r][c + 1] == 1 && visited[r][c + 1] != 2) {
-                visited[r][c + 1] = 2;
-                q.offer(new Pair(r, c + 1, t + 1));
-            }
         }
 
-    for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
-            if(grid[i][j]==1){
-                if(visited[i][j]!=2){
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]==1){
                     return -1;
                 }
             }
         }
-    }
-
         return ans;
+
+
+        
     }
 }
