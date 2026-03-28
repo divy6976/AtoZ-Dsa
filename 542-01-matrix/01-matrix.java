@@ -1,51 +1,64 @@
-class Solution{
+class Solution {
+
     class Pair{
         int row;
         int col;
-        int distaance;
-        Pair(int row,int col,int distaance){
+        int dist;
+        Pair(int row,int col,int dist){
             this.row=row;
             this.col=col;
-            this.distaance=distaance;
-
+            this.dist=dist;
         }
-
-
     }
 
+
+
     public int[][] updateMatrix(int[][] mat) {
-        int n=mat.length;
-        int m=mat[0].length;
-        int[][] visited=new int[n][m];
-        int[][] distance=new int[n][m];
-        Queue<Pair> q =new LinkedList<>();
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(mat[i][j]==0){
-    q.offer(new Pair(i,j,0));
-    visited[i][j]=1;
+
+        int[][] ans=new int[mat.length][mat[0].length];
+
+        Queue<Pair> q= new LinkedList<>();
+
+        boolean[][] visited=new boolean[mat.length][mat[0].length];
+
+        for(int i=0;i<mat.length;i++){
+            for(int j=0;j<mat[0].length;j++){
+                if(visited[i][j] == false && mat[i][j]==0){
+                    q.offer(new Pair(i,j,0));
+                    visited[i][j]=true;
                 }
             }
         }
-        int delrow[]={-1,0,+1,0};
-        int delcol[]={0,1,0,-1};
+
+        int rows[]={-1,0,1,0};
+        int cols[]={0,1,0,-1};
+
+        int n=mat.length;
+        int m=mat[0].length;
 
         while(!q.isEmpty()){
-Pair p=q.poll();
-int r=p.row;
-int c=p.col;
-int dis=p.distaance;
-distance[r][c]=dis;
-for(int i=0;i<4;i++){
-int nrow=r+delrow[i];
-int ncol=c+delcol[i];
-if(nrow>=0 && nrow< n && ncol>=0 && ncol<m && visited[nrow][ncol]==0){
-    visited[nrow][ncol]=1;
-    q.offer(new Pair(nrow,ncol,dis+1));
-}
-}
+            Pair p=q.poll();
 
+            int row=p.row;
+            int col=p.col;
+            int dist=p.dist;
+            ans[row][col]=dist;
+
+            for(int k=0;k<4;k++){
+                int nr=row+rows[k];
+                int nc=col+cols[k];
+
+                if(nr>=0 && nr<n && nc>=0 && nc<m && visited[nr][nc]==false && mat[nr][nc]==1 ){
+                    q.offer(new Pair(nr,nc,dist+1));
+                    visited[nr][nc]=true;
+
+                }
+
+
+            }
         }
-return distance;
+        return ans;
+
+        
     }
 }
