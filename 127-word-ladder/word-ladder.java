@@ -1,50 +1,62 @@
 class Solution {
-    class Pair {
-        String word;
-        int steps;
 
-        Pair(String word, int steps) {
-            this.word = word;
-            this.steps = steps;
+    class Pair{
+        String str;
+        int dist;
+        Pair(String str,int dist){
+            this.str=str;
+            this.dist=dist;
         }
+
     }
 
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        Queue<Pair> q = new LinkedList<>();
-        q.offer(new Pair(beginWord, 1));
 
-        Set<String> wordSet = new HashSet<>(wordList);
+        Queue<Pair> q=new LinkedList<>();
 
-        if (!wordSet.contains(endWord)) return 0;
+        q.offer(new Pair(beginWord,1));
 
-        while (!q.isEmpty()) {
-            Pair p = q.poll();
-            String word = p.word;
-            int steps = p.steps;
+        Set<String> st=new HashSet<>();
 
-            if (word.equals(endWord)) return steps;
+        for(int i=0;i<wordList.size();i++){
+            st.add(wordList.get(i));
+        }
 
-            char[] chars = word.toCharArray();
 
-            for (int i = 0; i < chars.length; i++) {
-                char original = chars[i];
+        while(!q.isEmpty()){
+            Pair p=q.poll();
 
-                for (char ch = 'a'; ch <= 'z'; ch++) {
-                    if (ch == original) continue;
+         String str=p.str;
+         int level=p.dist;
+         if(str.equals(endWord)){
+            return level;
+         }
 
-                    chars[i] = ch;
-                    String newWord = new String(chars);
-
-                    if (wordSet.contains(newWord)) {
-                        wordSet.remove(newWord);
-                        q.offer(new Pair(newWord, steps + 1));
-                    }
+         for(int i=0;i<str.length();i++){
+            StringBuilder sb=new StringBuilder(str);
+            char ch=str.charAt(i);
+            for(int j=0;j<26;j++){
+                char dh=(char) (j+'a');
+                sb.setCharAt(i,dh);
+                String newWord=sb.toString();
+                if(st.contains(newWord)){
+                    st.remove(newWord);
+                    q.offer(new Pair(newWord,level+1));
                 }
-// ye isliy kyuki last me z hai toh fr 2nd itwration ke loye z hin chla jyega
-                chars[i] = original; // restore original letter
+
             }
+
+         }
+
+        
+
         }
 
         return 0;
+
+
+
+
+        
     }
 }
