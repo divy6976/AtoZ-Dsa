@@ -1,35 +1,48 @@
 class Solution {
-   boolean  dfs(int i,int visited[],int path[],int[][]graph){
-        visited[i]=1;
-        path[i]=1;
-        for(int it:graph[i]){
-     if(visited[it]!=1){
-       if (dfs(it, visited, path, graph)) {
-                    return true;
-                }
-     }else if(path[it]==1){
-        return true;
-     }
-        }
-        path[i]=0;
-        return false;
-    }
     public List<Integer> eventualSafeNodes(int[][] graph) {
-    int n=graph.length;
-    int visited[]=new int[n];
-    int path[]=new int[n];
-    for(int i=0;i<n;i++){
-        if(visited[i]!=1){
-            dfs(i,visited,path,graph);
-        }
-    } 
-     List<Integer> result=new ArrayList<>();
-     for(int i=0;i<n;i++){
-        if(path[i]==0){
-            result.add(i);
-        }
-     }
-     return result;
+        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
 
+        for(int i=0;i<graph.length;i++){
+            adj.add(new ArrayList<>());
+        }
+
+       Queue<Integer> q=new LinkedList<>();
+
+       int[] outdegree=new int[graph.length];
+
+        for(int i=0;i<graph.length;i++){
+            if(graph[i].length == 0){
+               q.offer(i);
+            }
+            for(int j=0;j<graph[i].length;j++){
+                adj.get(graph[i][j]).add(i);
+            }
+            outdegree[i]=graph[i].length;
+        }
+
+        ArrayList<Integer> ans=new ArrayList<>();
+
+        
+        while(!q.isEmpty()){
+            int num=q.poll();
+            ans.add(num);
+
+            for(int neighbour:adj.get(num)){
+                outdegree[neighbour]--;
+                if(outdegree[neighbour] == 0){
+                    q.offer(neighbour);
+                }
+
+
+            }
+        }
+
+Collections.sort(ans);
+return ans;
+    
+
+
+
+        
     }
 }
