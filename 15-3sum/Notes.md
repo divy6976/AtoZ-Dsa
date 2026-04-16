@@ -1,1 +1,1 @@
-<h2>3sum Notes</h2><hr>[ Time taken: 45 m 20 s ]
+<h2>3sum Notes</h2><hr>[ Time taken: 30m 35s ]
