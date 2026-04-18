@@ -1,34 +1,50 @@
 class Solution {
-    int left[];   // Declare left[] and right[] globally
-    int right[];
 
-    void leftmaxi(int[] height) {
-        left = new int[height.length];  // Initialize the left array
-        left[0] = height[0];
-        for (int i = 1; i < height.length; i++) {
-            left[i] = Math.max(left[i - 1], height[i]);
+    void rightmaxi(int[] height, int[] rightmax){
+        int n = height.length;
+        int maxi = height[n - 1];
+
+        rightmax[n - 1] = maxi;
+
+        for(int i = n - 2; i >= 0; i--){
+            if(height[i] > maxi){
+                maxi = height[i];
+            }
+            rightmax[i] = maxi;
         }
     }
 
-    void rightmaxi(int[] height) {
-        right = new int[height.length];  // Initialize the right array
-        right[height.length - 1] = height[height.length - 1];
-        for (int i = height.length - 2; i >= 0; i--) {
-            right[i] = Math.max(right[i + 1], height[i]);
+    void leftmaxi(int[] height, int[] leftmax){
+        int n = height.length;
+        int maxi = height[0];
+
+        leftmax[0] = maxi;
+
+        for(int i = 1; i < n; i++){
+            if(height[i] > maxi){
+                maxi = height[i];
+            }
+            leftmax[i] = maxi;
         }
     }
 
     public int trap(int[] height) {
-        leftmaxi(height);  // Fill the left[] array
-        rightmaxi(height); // Fill the right[] array
-        int total = 0;
 
-        for (int i = 0; i < height.length; i++) {
-            if (height[i] < left[i] && height[i] < right[i]) {
-                total += Math.min(left[i], right[i]) - height[i];
-            }
+        int n = height.length;
+      
+
+        int[] rightmax = new int[n];
+        int[] leftmax = new int[n];
+
+        rightmaxi(height, rightmax);
+        leftmaxi(height, leftmax);
+
+        int sum = 0;
+
+        for(int i = 1; i < n - 1; i++){
+            sum += Math.min(leftmax[i], rightmax[i]) - height[i];
         }
 
-        return total;
+        return sum;
     }
 }
