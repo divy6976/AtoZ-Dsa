@@ -10,30 +10,30 @@
  *         this.val = val;
  *         this.left = left;
  *         this.right = right;
+        
  *     }
  * }
  */
 class Solution {
-    public List<Integer> preorderTraversal(TreeNode root) {
-        ArrayList<Integer>result=new ArrayList<>();
-        TreeNode curr=root;
-        while(curr!=null){
-            result.add(curr.val);
-            if(curr.left!=null){
-                TreeNode leftnode=curr.left;
-                while(leftnode.right!=null){
-                    leftnode=leftnode.right;
 
-                }
-                leftnode.right=curr.right;
-                TreeNode temp=curr;
-                curr=curr.left;
-                temp.left=null;
+    void preorder(TreeNode node,ArrayList<Integer> ans){
 
-            }else{
-                curr=curr.right;
-            }
+        if(node == null ){
+            return ;
         }
-        return result;
+        ans.add(node.val);
+        preorder(node.left,ans);
+        preorder(node.right,ans);
+        
+
+    }
+
+    public List<Integer> preorderTraversal(TreeNode root) {
+
+        ArrayList<Integer> ans=new ArrayList<>();
+
+        preorder(root,ans);
+        return ans;
+        
     }
 }
