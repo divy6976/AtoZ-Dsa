@@ -1,17 +1,15 @@
 class Solution {
-    void check(int i,List<List<Integer>> ans,int[] nums,ArrayList<Integer> sublist){
 
-        if(i >=nums.length){
+    void check(List<List<Integer>> ans,ArrayList<Integer> sublist,int[] nums,int i){
+        if(i== nums.length){
             ans.add(new ArrayList<>(sublist));
             return ;
         }
 
-        sublist.add(nums[i]);  // pick
-        check(i+1,ans,nums,sublist);
-        sublist.remove(sublist.size() - 1);
-        check(i+1,ans,nums,sublist);
-
-
+        sublist.add(nums[i]);
+        check(ans,sublist,nums,i+1);
+        sublist.remove(sublist.size()-1);
+        check(ans,sublist,nums,i+1);
 
     }
 
@@ -21,8 +19,8 @@ class Solution {
 
         ArrayList<Integer> sublist=new ArrayList<>();
 
+        check(ans,sublist,nums,0);
 
-        check(0,ans,nums,sublist);
         return ans;
         
     }
