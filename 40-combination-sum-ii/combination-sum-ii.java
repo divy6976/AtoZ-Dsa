@@ -1,26 +1,51 @@
 class Solution {
-    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-   List<List<Integer>>  result=new ArrayList<>();
-        ArrayList<Integer> current=new ArrayList<>();
-        Arrays.sort(candidates);
-        combination(candidates,target,0,result,current);
-        return result;
+
+    void check(int ind,ArrayList<Integer>sublist,List<List<Integer>> ans,int[] candidates,int target){
+
+
+        if(target == 0){
+            ans.add(new ArrayList<>(sublist));
+        }
+
+        for(int i=ind;i<candidates.length;i++){
+            if(i> ind && candidates[i]== candidates[i-1]){
+                continue;
+            } // duplicate 
+
+            if(candidates[i] > target){
+                return ;
+            }
+
+            sublist.add(candidates[i]);
+            check(i+1,sublist,ans,candidates,target-candidates[i]);
+            sublist.remove(sublist.size()-1);
+
+        }
+
+
+
+  
+
+
+
+
+
     }
-  void  combination(int[] candidates,int target,int ind,   List<List<Integer>>  result,     ArrayList<Integer> current){
+    
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+
+
+        Arrays.sort(candidates);
+
+      
+
+        List<List<Integer>> ans=new ArrayList<>();
+        ArrayList<Integer> sublist=new ArrayList<>();
+
+        check(0,sublist,ans,candidates,target);
+
+       
+        return ans;
         
-if(target==0){
-    result.add(new ArrayList<>(current));
-    return;
-}
-for(int i=ind;i<candidates.length;i++){
-    if(i>ind && candidates[i]==candidates[i-1]) continue;
-    if(candidates[i]>target) break;
-    current.add(candidates[i]);
-    combination(candidates,target-candidates[i],i+1,result,current);
-    current.remove(current.size()-1);
-}
-
-
-
     }
 }
