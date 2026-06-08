@@ -1,21 +1,26 @@
 class Solution {
 
-    int rob(int[] nums,int i,int[] dp){
-        if(i>= nums.length){
-            return 0;
-        }
+    int robs(int[] nums){
+      
+   
+        int[] dp=new int[nums.length+2];
+           dp[nums.length] = 0;
 
-        if(dp[i] !=-1){
-            return dp[i];
-        }
+       
+       for(int i=nums.length-1;i>=0;i--){
 
-       int pick = nums[i] + rob(nums, i + 2,dp);
-
-
-        int notpick=rob(nums,i+1,dp);
+       int pick = nums[i] +dp[i+2];
 
 
-        return dp[i]=Math.max(pick,notpick);
+
+
+        int notpick=dp[i+1];
+
+
+         dp[i]=Math.max(pick,notpick);
+
+       }
+       return dp[0];
 
 
 
@@ -24,12 +29,10 @@ class Solution {
 
 
     public int rob(int[] nums) {
-        int[]dp=new int[nums.length];
-
-        Arrays.fill(dp,-1);
+       
 
 
-    return    rob(nums,0,dp);
+    return    robs(nums);
 
        
     }
