@@ -15,24 +15,43 @@
  */
 class Solution {
 
-private int maxi=Integer.MIN_VALUE;
-   int diameter(TreeNode node){
+    int maxi=0;
 
-        if(node==null) return 0;
-        int left=diameter(node.left);
-        int right=diameter(node.right);
-        int height=1+Math.max(left,right);
-        maxi=Math.max(maxi,left+right);
+   
+    int check(TreeNode node){
 
-        return height;
-       
+        if(node == null){
+            return 0;
+        }
+
+        if(node.left == null && node.right == null){
+            return 1;
+        }
+
+        int left= check(node.left);
+        int right=check(node.right);
+
+         maxi=Math.max(maxi,left + right);
+
+
+
+         return Math.max(left,right)+1;
+
+
+
+
+
 
     }
+
     public int diameterOfBinaryTree(TreeNode root) {
-        if(root==null) return 0;
+  
 
-        diameter(root);
-        return maxi;
-
+  if(root.left == null && root.right == null){
+    return 0;
+  }
+     check(root);
+      return maxi;
+        
     }
 }
