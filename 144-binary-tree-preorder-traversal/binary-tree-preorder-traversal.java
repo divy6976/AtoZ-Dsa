@@ -10,29 +10,31 @@
  *         this.val = val;
  *         this.left = left;
  *         this.right = right;
-        
  *     }
  * }
  */
 class Solution {
 
-    void preorder(TreeNode node,ArrayList<Integer> ans){
-
-        if(node == null ){
+    void check(TreeNode node,ArrayList<Integer> ans){
+        if(node == null){
             return ;
         }
         ans.add(node.val);
-        preorder(node.left,ans);
-        preorder(node.right,ans);
-        
-
+        check(node.left,ans);
+        check(node.right,ans);
     }
+
 
     public List<Integer> preorderTraversal(TreeNode root) {
 
         ArrayList<Integer> ans=new ArrayList<>();
 
-        preorder(root,ans);
+        if(root == null){
+            return ans;
+        }
+
+        check(root,ans);
+
         return ans;
         
     }
