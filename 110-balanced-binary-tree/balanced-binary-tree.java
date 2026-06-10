@@ -14,27 +14,53 @@
  * }
  */
 class Solution {
-  private boolean valid = true;
+   
 
-  int   depth(TreeNode node){
-if(node==null) return 0;
-int left=depth(node.left);
-int right=depth(node.right);
-if(Math.abs(left-right)>1){
-    valid=false;
+  int check(TreeNode node){
+
+     if(node == null){
+        return 0;
+     }
+    
+
+       if(node.left == null && node.right == null){
+        return 1;
+       }
+
+        int left=check(node.left);
+        int right=check(node.right);
+
+        if(Math.abs(left-right) > 1){
+            
+            return -1;
+        
+            
+        }
+        if(left == -1 || right == -1){
+    return -1;
 }
-return 1+Math.max(left,right);
 
+
+        return Math.max(right , left) +1;
+        
 
     }
 
+
     public boolean isBalanced(TreeNode root) {
-       
-        if(root==null) return true;
-depth(root);
-        if(valid==true){
+
+        if(root == null){
             return true;
         }
-        return false;
+
+        int ans=check(root);
+        if(ans == -1){
+            return false;
+        }
+
+        return true;
+
+
+    
     }
 }
