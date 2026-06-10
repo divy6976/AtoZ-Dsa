@@ -14,39 +14,41 @@
  * }
  */
 class Solution {
-    int cnt=Integer.MAX_VALUE;
-    void findmin(TreeNode root,int level){
+    public int minDepth(TreeNode root) {
 
         if(root == null){
-            return ;
+            return 0;
         }
 
         if(root.left == null && root.right == null){
-            cnt=Math.min(cnt,level);
-            return ;
-        }
-
-        findmin(root.left,level+1);
-        findmin(root.right,level+1);
-
-
-  
-       
-
-    }
-    public int minDepth(TreeNode root) {
-
-
-         if(root == null){
-            return 0;
-        }
-        if(root.left==null && root.right == null){
             return 1;
         }
 
+        int cnt=Integer.MAX_VALUE;
+        int compare =1;
+     
+     Queue<TreeNode > q=new LinkedList<>();
 
-        findmin(root,1);
-        return cnt;
+     q.offer(root);
+
+     while(!q.isEmpty()){
+        int check=q.size();
+        for(int i=0;i<check;i++){
+            TreeNode node =q.poll();
+            if(node.left != null){
+                q.offer(node.left);
+            }
+            if(node.right !=null){
+                q.offer(node.right);
+            }
+            if(node.left == null && node.right == null){
+                cnt = Math.min(cnt,compare);
+            }
+        }
+        compare ++;
+     }
+
+     return cnt;
 
         
     }
