@@ -14,25 +14,43 @@
  * }
  */
 class Solution {
-     public boolean isSameTree(TreeNode p, TreeNode q) {
-        ArrayList<Integer> list1 = new ArrayList<>();
-        ArrayList<Integer> list2 = new ArrayList<>();
 
-        getPostOrder(p, list1);
-        getPostOrder(q, list2);
-
-        return list1.equals(list2); // Directly compare lists
+    void check(TreeNode node,ArrayList<Integer> ans){
+        if(node == null){
+            ans.add(null);
+            return ;
+        }
+         ans.add(node.val);
+        if(node.left!=null){
+        check(node.left,ans);
+        }else {
+            ans.add(null);
+            
+        }
+       
+        if(node.right !=null){
+        check(node.right,ans);
+        }else {
+            ans.add(null);
+        }
     }
 
-    void getPostOrder(TreeNode node, ArrayList<Integer> list) {
-        if (node == null) {
-            list.add(null); // Keep structure information
-            return;
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+
+
+        ArrayList<Integer> ans=new ArrayList<>();
+        ArrayList<Integer> res=new ArrayList<>();
+
+        check(p,ans);
+        check(q,res);
+
+        if(ans.size() != res.size()){
+            return false;
+
         }
 
-        getPostOrder(node.left, list);
-        getPostOrder(node.right, list);
-        list.add(node.val); // Post-order: left, right, node
+        return ans.equals(res);
+     
+      
     }
-
 }
