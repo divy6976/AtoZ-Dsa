@@ -14,36 +14,55 @@
  * }
  */
 class Solution {
-    TreeMap<Integer,TreeMap<Integer,ArrayList<Integer>>> map=new TreeMap<>();
-    void dfs(TreeNode node,int col,int level){
-        if(node== null ) return ;
-        if(!map.containsKey(col)){
-            map.put(col,new TreeMap<>());
-        }
-        if(!map.get(col).containsKey(level)){
-            map.get(col).put(level,new ArrayList<>());
-        }
-        map.get(col).get(level).add(node.val);
-        dfs(node.left,col-1,level+1);
-        dfs(node.right,col+1,level+1);
-    }
-    public List<List<Integer>> verticalTraversal(TreeNode root) {
-        List<List<Integer>> result=new ArrayList<>();
-        if(root==null){
-            return result;
-        }
-        dfs(root,0,0);
-        for(Map.Entry<Integer,TreeMap<Integer,ArrayList<Integer>>> entry:map.entrySet()){
-            TreeMap<Integer,ArrayList<Integer>> levelmap=entry.getValue();
-            ArrayList<Integer> list=new ArrayList<>();
-            for(Map.Entry<Integer,ArrayList<Integer>> subentry:levelmap.entrySet()){
-                ArrayList<Integer> sublist=subentry.getValue();
-                Collections.sort(sublist);
-                list.addAll(sublist);
 
-            }
-            result.add(list);
+    void dfs(TreeNode node,TreeMap<Integer,TreeMap<Integer,ArrayList<Integer>>> mpp,int col,int level){
+        if(node == null){
+            return ;
+
         }
-        return result;
+
+        if(!mpp.containsKey(col)){
+            mpp.put(col,new TreeMap<>());
+        }
+
+        if(!mpp.get(col).containsKey(level)){
+            mpp.get(col).put(level,new ArrayList<>());
+        }
+
+        mpp.get(col).get(level).add(node.val);
+
+        dfs(node.left,mpp,col-1,level+1);
+        dfs(node.right,mpp,col+1,level+1);
+
+
+
+
+    }
+
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+
+        TreeMap<Integer,TreeMap<Integer,ArrayList<Integer>>> mpp=new TreeMap<>();
+
+List<List<Integer>> ans=new ArrayList<>();
+// col ->[row->[],row->[]];
+
+        dfs(root,mpp,0,0);
+// coln wise
+        for(Map.Entry<Integer,TreeMap<Integer,ArrayList<Integer>>> entry:mpp.entrySet()){
+   TreeMap<Integer,ArrayList<Integer>> levelwise=entry.getValue();
+   
+
+   ArrayList<Integer> list=new ArrayList<>();
+
+   for(Map.Entry<Integer,ArrayList<Integer>> subentry:levelwise.entrySet()){
+    ArrayList<Integer> sublist=subentry.getValue();
+    Collections.sort(sublist);
+    list.addAll(sublist);
+   }
+   ans.add(new ArrayList<>(list));
+
+        }
+        return ans;
+        
     }
 }
