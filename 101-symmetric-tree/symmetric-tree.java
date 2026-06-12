@@ -15,38 +15,49 @@
  */
 class Solution {
 
-void left(TreeNode node, ArrayList<Integer>list1){
-if(node==null){
-  list1.add(null);
-  return ;
-}
-    list1.add(node.val);
-    left(node.left,list1);
-    left(node.right,list1);
+    void preorder(TreeNode node,ArrayList<Integer> pre){
+        if(node == null){
+            pre.add(null);
+            return ;
+        }
+        pre.add(node.val);
+        preorder(node.left,pre);
+        preorder(node.right,pre);
+    }
 
-
-
-}
-void right(TreeNode node, ArrayList<Integer>list2){
-if(node==null){
-  list2.add(null);
-  return ;
-}
-    list2.add(node.val);
-    right(node.right,list2);
-    right(node.left,list2);
-
-
-
-}
-
-
+    void postorder(TreeNode node,ArrayList<Integer> post){
+        if(node == null){
+            post.add(null);
+            return ;
+        }
+        postorder(node.left,post);
+        postorder(node.right,post);
+        post.add(node.val);
+    }
 
     public boolean isSymmetric(TreeNode root) {
-        ArrayList<Integer>list1=new ArrayList<>();
-         ArrayList<Integer>list2=new ArrayList<>();
-         left(root.left,list1);
-         right(root.right,list2);
-         return list1.equals(list2);
+        if(root == null){
+            return true;
+        }
+        if(root.left == null && root.right == null){
+            return true;
+        }
+
+        ArrayList<Integer> pre=new ArrayList<>();
+
+        preorder(root.left,pre);
+        ArrayList<Integer> post=new ArrayList<>();
+ 
+  
+        postorder(root.right,post);
+
+        Collections.reverse(post);
+
+        return pre.equals(post);
+     
+
+
+
+
     }
 }
