@@ -15,24 +15,28 @@
  */
 class Solution {
     public int countNodes(TreeNode root) {
-        int cnt=0;
-        int arr[]=new int[1];
-        arr[0]=0;
-    count(root,arr);
-    for(int i=0;i<arr.length;i++){
-        cnt =arr[0];
-    }
-return cnt;
-    
-
-    }
-    void count(TreeNode node,int[] arr){
-        if(node==null){
-            return ;
+        if(root == null){
+            return 0;
         }
-        
-        arr[0]=arr[0]+1;
-        count(node.left,arr);
-        count(node.right,arr);
+        Queue<TreeNode> q=new LinkedList<>();
+
+        q.offer(root);
+        int sum=0;
+        while(!q.isEmpty()){
+            int check=q.size();
+            sum += check;
+
+            for(int i=0;i<check;i++){
+                TreeNode node =q.poll();
+                if(node.left !=null){
+                    q.offer(node.left);
+                }
+                if(node.right!=null){
+                    q.offer(node.right);
+                }
+
+            }
+        }
+        return sum;
     }
 }
