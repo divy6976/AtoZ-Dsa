@@ -15,17 +15,24 @@
  */
 class Solution {
 
- void  Inorder(TreeNode node,  ArrayList<Integer>list){
-    if(node==null ) return ;
-    Inorder(node.left,list);
-    list.add(node.val);
-    Inorder(node.right,list);
-   }
+    void check(ArrayList<Integer> ans,TreeNode node,int k){
+        if(node == null){
+            return ;
+        }
+       
+       ans.add(node.val);
+       check(ans,node.left,k);
+       check(ans,node.right,k);
+    }
 
     public int kthSmallest(TreeNode root, int k) {
-        if(root==null) return root.val;
-        ArrayList<Integer>list=new ArrayList<>();
-        Inorder(root,list);
-return list.get(k-1);
+
+        ArrayList<Integer> ans=new ArrayList<>();
+
+        check(ans,root,k);
+        Collections.sort(ans);
+
+        return ans.get(k-1);
+        
     }
 }
