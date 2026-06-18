@@ -1,16 +1,22 @@
 class Solution {
     public int removeDuplicates(int[] nums) {
 
-        HashSet<Integer> mpp=new HashSet<>();
-   int j=0;
-       for(int i=0;i<nums.length;i++){
+        
+        int i =0;
+        int j=0;
 
-        if(!mpp.contains(nums[i])){
-            mpp.add(nums[i]);
-            nums[j]=nums[i];
+        while(j<nums.length){
+            if(nums[i] != nums[j]){
+                nums[i+1] = nums[j];
+                i=i+1;
+                
+            }
             j++;
         }
-       }
-        return mpp.size();
+
+
+        return i - 0+1;
+        
+        
     }
 }
