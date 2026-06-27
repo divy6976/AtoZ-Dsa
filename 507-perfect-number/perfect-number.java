@@ -1,26 +1,32 @@
 class Solution {
     public boolean checkPerfectNumber(int num) {
 
-        long sum =0;
+            long sum =0;
 
-        for(int i=1;i<num;i++){
-            if(num%i ==0){
-                sum += i;
+            if(num==1){
+                return false;
             }
 
-        }
+            for(int i=1;i*i<=num;i++){
+                if(num % i == 0){
+                    sum += i;
 
-        int ans=(int) sum;
-        String st=String.valueOf(ans);
-        String tt=String.valueOf(num);
+                    if(i==1){
+                    continue;
+                }
 
-        if(st.equals(tt)){
-            return true;
-        }
-        return false;
+                     if(i!=num/i){
+                        sum += num/i;
+                    }
+                
+                }
 
+                
+                   
 
+            }
 
+            return (int)sum == num;
         
     }
 }
