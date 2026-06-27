@@ -1,23 +1,15 @@
 class Solution {
     public int missingNumber(int[] nums) {
 
-        HashSet<Integer> st=new HashSet<>();
+        int n=nums.length;
 
-        int maxi=0;
+ int sum=0;
+        sum += n*(n+1)/2;
 
         for(int i=0;i<nums.length;i++){
-            st.add(nums[i]);
-            maxi=Math.max(maxi,nums[i]);
+            sum -=nums[i];
         }
-
-        for(int i=0;i<=maxi+1;i++){
-
-            if(!st.contains(i)){
-                return i;
-            }
-
-        }
-        return -1;
+        return sum;
         
     }
 }
