@@ -1,43 +1,50 @@
 class Solution {
-    // x= -(y+z)
     public List<List<Integer>> threeSum(int[] nums) {
-        Arrays.sort(nums);
+
+Arrays.sort(nums);
         List<List<Integer>> ans=new ArrayList<>();
-        HashSet<ArrayList<Integer>> st=new HashSet<>();
 
-        for(int i=0;i<nums.length-2;i++){
+        for(int i=0;i<nums.length;i++){
+            if(i>0 && nums[i]== nums[i-1]){
+                continue;
+            }
+            int j=i+1;
+            int k=nums.length-1;
 
-            int y=i+1;
-            int z=nums.length-1;
+            int target=-(nums[i]);
 
-            while(y<z){
-                int target=-(nums[i]);
-                int check= (nums[y]+nums[z]);
+            while(j<k){
+   if((nums[j] + nums[k]) == target){
+List<Integer> sublist=new ArrayList<>();
+sublist.add(nums[i]);
+sublist.add(nums[j]);
+sublist.add(nums[k]);
 
-                if(check == target){
-                    ArrayList<Integer> sublist=new ArrayList<>();
-                    sublist.add(nums[i]);
-                    sublist.add(nums[y]);
-                    sublist.add(nums[z]);
-                    Collections.sort(sublist);
-                    st.add(sublist);
-                    y++;
-                    z--;
-                    
-                    
-                }else if(check  > target){
-                    z--;
+ans.add(new ArrayList<>(sublist));
+j++;
+k--;
+
+
+// Skip duplicate j
+while (j < k && nums[j] == nums[j - 1]) {
+    j++;
+}
+
+// Skip duplicate k
+while (j < k && nums[k] == nums[k + 1]) {
+    k--;
+}
+
+
+   }   else if(nums[j] + nums[k] > target){
+                   k--;
                 }else {
-                    y++;
+                   j++;
                 }
-            }
-                     
 
+            }
         }
-
-         for(ArrayList sublist:st){
-                ans.add(sublist);
-            }
-            return ans;
+        return ans;
+        
     }
 }
