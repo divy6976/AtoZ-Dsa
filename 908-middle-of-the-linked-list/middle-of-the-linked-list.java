@@ -20,7 +20,7 @@ class Solution {
         }
         int target= (cnt)/2;
         temp=head;
-        while(target >0){
+        while(target !=0){
             temp=temp.next;
             target --;
 
