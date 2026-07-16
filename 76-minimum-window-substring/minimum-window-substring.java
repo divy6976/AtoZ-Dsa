@@ -1,38 +1,78 @@
 class Solution {
     public String minWindow(String s, String t) {
-        
-    int cnt=0;
-    int minlength=Integer.MAX_VALUE;
-    int sindex=-1;
-    int l=0;
-    int r=0;
-int hash[]=new int[256];
-for(int i=0;i<t.length();i++){
-    hash[t.charAt(i)]++;
+
+
+if(s.length() < t.length()){
+ return "";
 }
-    while(r<s.length()){
-
-        if(hash[s.charAt(r)]>0){
-            cnt= cnt+1;
-        }
-        hash[s.charAt(r)]--;
-
-        while(cnt==t.length()){
-            if(r-l+1<minlength){
-                minlength=r-l+1;
-       sindex=l;
-                   }
-                   hash[s.charAt(l)]++;
-
-                   if(hash[s.charAt(l)]>0){
-                    cnt--;
-                   }
-l++;
-
-        }
-        r=r+1;
+if(s.length()== 1 && t.length()==1){
+    if(s.charAt(0) != t.charAt(0)){
+        return "";
     }
+}
 
-return sindex==-1 ? "":s.substring(sindex,sindex+minlength);
+        int count=t.length();
+
+        HashMap<Character,Integer> mpp=new HashMap<>();
+
+        for(int i=0;i<t.length();i++){
+            mpp.put(t.charAt(i),mpp.getOrDefault(t.charAt(i),0)+1);
+        }
+
+        int start=-1;
+        int maxi=Integer.MAX_VALUE;
+int end=-1;
+        int k=0;
+        int l=0;
+        int r=0;
+
+        while(r<s.length()){
+            char ch=s.charAt(r);
+
+            if(mpp.containsKey(ch) && mpp.get(ch) >0){
+                count --;
+
+            }
+          
+            mpp.put(ch,mpp.getOrDefault(ch,0)-1);
+
+              if(count == 0){
+                if(r-l+1 < maxi){
+                    maxi=r-l+1;
+                    start=l;
+                    end=r;
+                }
+
+                while(count == 0){
+
+                    if(r-l+1 < maxi){
+                        maxi=r-l+1;
+                     start=l;
+                     end=r;
+                    } 
+
+                    mpp.put(s.charAt(l),mpp.getOrDefault(s.charAt(l),0)+1);
+                    
+
+                    if(mpp.get(s.charAt(l)) > 0){
+                        count ++;
+
+                      
+                    }
+                      
+                    l++;
+
+                  
+                    
+                }
+
+            }
+            r=r+1;
+        }
+if(start == -1 || end == -1){
+    return "";
+}
+        return s.substring(start,end+1);
+        
     }
 }
