@@ -1,52 +1,37 @@
 class Solution {
     public boolean isValid(String s) {
 
-        char ch=s.charAt(0);
-
-        if(ch == '}' || ch==']' || ch==')'){
+        if(s.charAt(0) == ']' || s.charAt(0) == '}' || s.charAt(0)==')'){
             return false;
         }
-
-        Stack<Character > st=new Stack<>();
+        Stack<Character> st=new Stack<>();
 
         for(int i=0;i<s.length();i++){
-            char dh=s.charAt(i);
-
-            if(dh == '[' || dh=='{' || dh=='('){
-                st.push(dh);
-            }else if(dh == ']'){
-                if(!st.isEmpty()){
-                char po=st.pop();
-                if(po == '{' || po == '('){
+            char ch=s.charAt(i);
+            if(ch == '(' || ch=='[' || ch == '{'){
+                st.push(ch);
+            }else if(ch==')' || ch==']' || ch=='}'){
+                if(st.isEmpty()){
                     return false;
-
                 }
+                 char dh=st.pop();
+                if(ch==']'){
+                    if(dh != '['){
+                        return false;
+                    }
+                   
+                   
+                }else if(ch == '}'){
+                   if(dh!='{'){
+                    return false;
+                   }
                 }else {
-                    return false;
-                }
-            }else if(dh == '}'){
-                if(!st.isEmpty()){
-                char po=st.pop();
-
-                if(po == '[' || po =='('){
-                    return false;
-                }
-                }else{
-                    return false;
-                }
-            }else if(dh ==')'){
-                if(!st.isEmpty()){
-                char po=st.pop();
-                if(po == '{' || po == '['){
-                    return false;
-                }
-                }else{
-                    return false;
+                    if(dh !='('){
+                        return false;
+                    }
                 }
             }
-
         }
-
         if(!st.isEmpty()){
             return false;
         }
