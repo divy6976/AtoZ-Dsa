@@ -21,16 +21,18 @@ ListNode temp=head;
         }
 
         int target=cnt-n;
-        target=target;
-        if(target == 0){
+         if(target == 0){
             return head.next;
         }
+        target=target+1;
+       
 
         ListNode prev=null;
         temp=head;
 int check=0;
         while(temp!=null){
-
+            check ++;
+  
             if(check == target){
                 prev.next=temp.next;
                 temp.next=null;
@@ -38,7 +40,7 @@ int check=0;
             }
             
             prev=temp;
-            check ++;
+            
             temp=temp.next;
         }
 
