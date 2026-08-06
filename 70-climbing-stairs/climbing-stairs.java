@@ -1,38 +1,23 @@
 class Solution {
-
-    
-
-    int check(int n,int[] dp){
-
-
-        if(n<=1){
-            return 1;
-
-        }
-        if(dp[n] !=-1){
-            return dp[n];
-        }
-
-
-
-        dp[n]=check(n-1,dp) +check(n-2,dp);
-
-        return dp[n];
-        
-    }
-
-
     public int climbStairs(int n) {
 
+        int a=1;
+        int b=2;
+        if(n==1){
+            return 1;
+        }
+        if(n==2){
+            return 2;
+        }
+    int ans=0;
 
-        int[] dp=new int[n+1];
-        Arrays.fill(dp,-1);
-
-
-
-       
-        return  check(n,dp);
-        
+      for(int i=3;i<=n;i++){
+        int c=a+b;
+        ans=c;
+        a=b;
+        b=c;
+      }
+return ans;
         
     }
 }
