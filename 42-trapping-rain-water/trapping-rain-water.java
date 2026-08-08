@@ -1,50 +1,57 @@
 class Solution {
 
-    void rightmaxi(int[] height, int[] rightmax){
-        int n = height.length;
-        int maxi = height[n - 1];
 
-        rightmax[n - 1] = maxi;
-
-        for(int i = n - 2; i >= 0; i--){
+    void leftymax(int[] height,int[] lefty){
+        int maxi=Integer.MIN_VALUE;
+        for(int i=0;i<height.length;i++){
             if(height[i] > maxi){
-                maxi = height[i];
+                maxi=height[i];
+lefty[i]=-1;
+            }else{
+                lefty[i]=maxi;
             }
-            rightmax[i] = maxi;
+
         }
+
     }
 
-    void leftmaxi(int[] height, int[] leftmax){
-        int n = height.length;
-        int maxi = height[0];
 
-        leftmax[0] = maxi;
+    void rightmax(int[] height,int[] righty){
 
-        for(int i = 1; i < n; i++){
+
+        int maxi=Integer.MIN_VALUE;
+
+        for(int i=height.length-1;i>=0;i--){
+
             if(height[i] > maxi){
-                maxi = height[i];
+                maxi=height[i];
+       righty[i]=-1;
+            }else {
+                righty[i]=maxi;
             }
-            leftmax[i] = maxi;
-        }
-    }
 
+        }
+
+
+
+
+    }
     public int trap(int[] height) {
 
-        int n = height.length;
-      
 
-        int[] rightmax = new int[n];
-        int[] leftmax = new int[n];
+    int[] righty=new int[height.length];
+    int[] lefty=new int[height.length];
+        rightmax(height,righty);
+        leftymax(height,lefty);
+        int sum=0;
+        for(int i=0;i<height.length;i++){
 
-        rightmaxi(height, rightmax);
-        leftmaxi(height, leftmax);
+         if(righty[i] !=-1 && lefty[i]!=-1){
+            sum += Math.min(lefty[i],righty[i]) - height[i];
+         }
 
-        int sum = 0;
-
-        for(int i = 1; i < n - 1; i++){
-            sum += Math.min(leftmax[i], rightmax[i]) - height[i];
         }
-
         return sum;
+
     }
 }
