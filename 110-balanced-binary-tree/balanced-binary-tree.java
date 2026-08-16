@@ -14,53 +14,20 @@
  * }
  */
 class Solution {
-   
-
-  int check(TreeNode node){
-
-     if(node == null){
-        return 0;
-     }
-    
-
-       if(node.left == null && node.right == null){
-        return 1;
-       }
-
-        int left=check(node.left);
-        int right=check(node.right);
-
-        if(Math.abs(left-right) > 1){
-            
-            return -1;
-        
-            
-        }
-        if(left == -1 || right == -1){
-    return -1;
-}
-
-
-        return Math.max(right , left) +1;
-        
-
-    }
-
-
-    public boolean isBalanced(TreeNode root) {
-
+boolean flag=true;
+    int check(TreeNode root){
         if(root == null){
-            return true;
+            return 0;
         }
-
-        int ans=check(root);
-        if(ans == -1){
-            return false;
+        int left=check(root.left);
+        int right=check(root.right);
+        if(Math.abs(left-right) > 1){
+            flag=false;
         }
-
-        return true;
-
-
-    
+        return 1+Math.max(left,right);
+    }
+    public boolean isBalanced(TreeNode root) {
+        check(root);
+        return flag;
     }
 }
