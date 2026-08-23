@@ -1,27 +1,23 @@
 class Solution {
-
-    void check(List<List<Integer>> ans,ArrayList<Integer> sublist,int[] nums,int i){
-        if(i== nums.length){
-            ans.add(new ArrayList<>(sublist));
+    void subset(int[] nums,List<List<Integer>> ans,List<Integer> sublist,int j){
+        if(sublist.size() > nums.length){
             return ;
         }
-
-        sublist.add(nums[i]);
-        check(ans,sublist,nums,i+1);
-        sublist.remove(sublist.size()-1);
-        check(ans,sublist,nums,i+1);
-
+        ans.add(new ArrayList<>(sublist));
+        for(int i=j;i<nums.length;i++){
+  sublist.add(nums[i]);
+  subset(nums,ans,sublist,i+1);
+  sublist.remove(sublist.size()-1);
+        }
     }
-
     public List<List<Integer>> subsets(int[] nums) {
 
         List<List<Integer>> ans=new ArrayList<>();
 
-        ArrayList<Integer> sublist=new ArrayList<>();
+      List<Integer> sublist=new ArrayList<>();
 
-        check(ans,sublist,nums,0);
-
-        return ans;
+        subset(nums,ans,sublist,0);
+return ans;
         
     }
 }
