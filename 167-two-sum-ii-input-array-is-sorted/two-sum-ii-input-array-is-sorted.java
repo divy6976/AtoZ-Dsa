@@ -1,22 +1,23 @@
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
         
-        HashMap<Integer,Integer> mpp=new HashMap<>();
+     int i=0;
+     int j=numbers.length-1;
+int[] ans=new int[2];
 
-          mpp.put(numbers[0],0);
-          int[] ans=new int[2];
-
-          for(int i=1;i<numbers.length;i++){
-            int check=target-numbers[i];
-            if(mpp.containsKey(check)){
-                ans[0]=mpp.get(check)+1;
-                ans[1]=i+1;
-                break;
-            }
-            mpp.put(numbers[i],i);
-
-          }
-          return ans;
+     while(i<j){
+        int sum = numbers[i]+ numbers[j];
+        if(sum == target){
+            ans[0]= i+1;
+            ans[1]=j+1;
+            break;
+        }else if(sum > target){
+            j--;
+        }else {
+             i++;
+        }
+     }
+     return ans;
 
 
     }
