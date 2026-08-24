@@ -1,36 +1,29 @@
 class Solution {
     public boolean isPalindrome(String s) {
-        String t=s.toLowerCase();
+        s=s.toLowerCase();
 
-
-    ArrayList<Character> ans=new ArrayList<>();
-
-    for(int i=0;i<s.length();i++){
-        char ch=t.charAt(i);
-        if(ch>='a' && ch<='z' || ch>='0' && ch<='9'){
-            ans.add(ch);
-        }
-
+  StringBuilder sb=new StringBuilder();
+  for(int i=0;i<s.length();i++){
+    char ch=s.charAt(i);
+    if(ch >='a' && ch<='z' || ch>='0' && ch<='9'){
+        sb.append(ch);
     }
 
-    int i=0;
-    int j=ans.size()-1;
-
-    while(i<j){
-        char ch=ans.get(i);
-        char dh=ans.get(j);
-        if(ch!=dh){
-            return false;
-        }
-        i++;
-        j--;
-
+  }
+  String check=sb.toString();
+  int i=0;
+  int j=check.length()-1;
+  while(i<j){
+    char ch=check.charAt(i);
+    char dh=check.charAt(j);
+    if(ch!=dh){
+        return false;
     }
+    i++;
+    j--;
 
-    return true;
+  }
+  return true;
 
-
-
-        
     }
 }
