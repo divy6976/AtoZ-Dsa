@@ -12,22 +12,20 @@ Stack<Pair> st=new Stack<>();
     public MinStack() {
         
     }
-    int mini=Integer.MAX_VALUE;
+  
     public void push(int val) {
-        if(val < mini){
-            mini=val;
-        }
-        st.push(new Pair(val,mini));
+      if(st.isEmpty()) {
+        st.push(new Pair(val, val));
+    } else {
+        int min = Math.min(val, st.peek().mini);
+        st.push(new Pair(val, min));
+    }
     }
     
     public void pop() {
         st.pop();
 
-          if (!st.isEmpty()) {
-        mini = st.peek().mini;
-    } else {
-        mini = Integer.MAX_VALUE;
-    }
+     
         
     }
     
