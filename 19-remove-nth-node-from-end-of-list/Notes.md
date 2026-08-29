@@ -1,1 +1,1 @@
-<h2>remove-nth-node-from-end-of-list Notes</h2><hr>[ Time taken: 27m 36s ]
+<h2>remove-nth-node-from-end-of-list Notes</h2><hr>[ Time taken: 18m 13s ]
