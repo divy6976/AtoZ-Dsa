@@ -3,23 +3,14 @@ class Solution {
 
         int buy=prices[0];
         int maxi=0;
-
         for(int i=1;i<prices.length;i++){
-            
-            if(prices[i] < buy ){
-                buy = prices[i];
+            if(prices[i] < buy){
+                buy=prices[i];
             }else {
-                int profit=prices[i] - buy;
-                maxi=Math.max(maxi,profit);
+    maxi=Math.max(maxi,prices[i]-buy);
             }
         }
-
         return maxi;
-
-
-
-
-
         
     }
 }
